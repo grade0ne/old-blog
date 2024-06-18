@@ -2,7 +2,7 @@ name: "blog"
 title: "Evolution-mediated"
 description: |
   Evolution-mediated
-output_dir: "grade0ne.github.io"
+output_dir: "."
 navbar:
   right:
     - text: "Home"
