@@ -1,0 +1,9 @@
+---
+title: "About this blog"
+description: |
+  Evolution-mediated, a project focused on investigating evolution-mediated indirect effects of climate change on ecology in diverse natural communities.
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```

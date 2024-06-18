@@ -1,0 +1,20 @@
+{
+  "articles": [
+    {
+      "path": "about.html",
+      "title": "About this blog",
+      "description": "Evolution-mediated, a project focused on investigating evolution-mediated indirect effects of climate change on ecology in diverse natural communities.",
+      "author": [],
+      "contents": "\r\n\r\n\r\n\r\n",
+      "last_modified": "2024-06-17T14:39:55-07:00"
+    },
+    {
+      "path": "index.html",
+      "title": "Evolution-mediated",
+      "author": [],
+      "contents": "\r\n\r\n\r\n\r\n",
+      "last_modified": "2024-06-17T14:40:08-07:00"
+    }
+  ],
+  "collections": ["posts/posts.json"]
+}

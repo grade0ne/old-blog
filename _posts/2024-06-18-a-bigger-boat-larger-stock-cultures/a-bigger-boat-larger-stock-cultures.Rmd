@@ -1,0 +1,39 @@
+---
+title: "A Bigger Boat: Larger Stock Cultures"
+description: |
+  Increasing the volume of my stock cultures to accomidate higher replication and running experiments in parallel.
+author:
+  - name: Alex Mendelson
+    url: https://example.com/norajones
+date: 2024-06-18
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, cultureSeeding, echo=TRUE}
+library(tidyverse)
+library(car)
+
+sourceCultures <- data.frame(
+  Source = c("Stock", "Stock", "Pop1", "Pop1", "Pop1", "Stock", "Pop1", "Pop1", "Pop1", "Pop1", "Stock", "Stock"),
+  CloneID = c("1.1", "1.2", "1.5", "1.6", "1.7", "2.1", "2.2", "2.3", "2.4", "2.5", "2.7", "1.8"),
+  Count = c(34, 59, 228, 35, 65, 97, 105, 175, 141, 145, 101, 31))
+
+countVol = 0.3         # volume counted in plate
+finalDensity = 10      # rotifers per mL
+finalVolume = 100      # stock culture volume, mL
+
+VolumeFinal <- (finalDensity * finalVolume)/ (sourceCultures$Count / countVol)
+sourceCultures <- cbind(sourceCultures, VolumeFinal)
+
+VolFinHalf <- sourceCultures$VolumeFinal / 2
+sourceCultures <- cbind(sourceCultures, VolFinHalf)
+
+sourceCultures
+```
