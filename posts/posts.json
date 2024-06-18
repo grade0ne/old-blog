@@ -1,0 +1,36 @@
+[
+  {
+    "path": "posts/2024-06-18-a-bigger-boat-larger-stock-cultures/",
+    "title": "A Bigger Boat: Larger Stock Cultures",
+    "description": "Increasing the volume of my stock cultures to accomidate higher replication and running experiments in parallel.",
+    "author": [
+      {
+        "name": "Alex Mendelson",
+        "url": "https://example.com/norajones"
+      }
+    ],
+    "date": "2024-06-18",
+    "categories": [],
+    "contents": "\r\n\r\n\r\nlibrary(tidyverse)\r\nlibrary(car)\r\n\r\nsourceCultures <- data.frame(\r\n  Source = c(\"Stock\", \"Stock\", \"Pop1\", \"Pop1\", \"Pop1\", \"Stock\", \"Pop1\", \"Pop1\", \"Pop1\", \"Pop1\", \"Stock\", \"Stock\"),\r\n  CloneID = c(\"1.1\", \"1.2\", \"1.5\", \"1.6\", \"1.7\", \"2.1\", \"2.2\", \"2.3\", \"2.4\", \"2.5\", \"2.7\", \"1.8\"),\r\n  Count = c(34, 59, 228, 35, 65, 97, 105, 175, 141, 145, 101, 31)\r\n)\r\n\r\ncountVol = 0.3         # volume counted in plate\r\nfinalDensity = 10      # rotifers per mL\r\nfinalVolume = 100      # stock culture volume, mL\r\n\r\nVolumeFinal <- (finalDensity * finalVolume)/ (sourceCultures$Count / countVol)\r\nsourceCultures <- cbind(sourceCultures, VolumeFinal)\r\n\r\nVolFinHalf <- sourceCultures$VolumeFinal / 2\r\nsourceCultures <- cbind(sourceCultures, VolFinHalf)\r\n\r\nsourceCultures\r\n\r\n   Source CloneID Count VolumeFinal VolFinHalf\r\n1   Stock     1.1    34    8.823529  4.4117647\r\n2   Stock     1.2    59    5.084746  2.5423729\r\n3    Pop1     1.5   228    1.315789  0.6578947\r\n4    Pop1     1.6    35    8.571429  4.2857143\r\n5    Pop1     1.7    65    4.615385  2.3076923\r\n6   Stock     2.1    97    3.092784  1.5463918\r\n7    Pop1     2.2   105    2.857143  1.4285714\r\n8    Pop1     2.3   175    1.714286  0.8571429\r\n9    Pop1     2.4   141    2.127660  1.0638298\r\n10   Pop1     2.5   145    2.068966  1.0344828\r\n11  Stock     2.7   101    2.970297  1.4851485\r\n12  Stock     1.8    31    9.677419  4.8387097\r\n\r\n\r\n\r\n\r\n",
+    "preview": {},
+    "last_modified": "2024-06-18T15:23:26-07:00",
+    "input_file": {}
+  },
+  {
+    "path": "posts/welcome/",
+    "title": "Evolution-mediated",
+    "description": "Welcome to Evolution-mediated, a project focused on investigating evolution-mediated indirect effects of climate change on ecology in diverse natural communities.",
+    "author": [
+      {
+        "name": "Alex Mendelson",
+        "url": "https://example.com/norajones"
+      }
+    ],
+    "date": "2024-06-15",
+    "categories": [],
+    "contents": "\r\nIn this project, I aim to investigate evolution-mediated indirect effects of increased temperature stress on competitive effect and competitive response. To do so, I’ll expose genetically diverse populations of an aquatic invertebrate to stressful and ambient temperatures for many (~50) generations, establishing two different microevolutionary histories of temperature. By exposing subsequent evolved populations to a natural competitor, I hope to observe differences in competitive ability (both effect and response) as mediated by microevolutionary change in population trait frequencies as a response to increased temperature stress. This blog will document each step—the good and the bad—in reaching for this goal over the next year.\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+    "preview": "posts/welcome/../../images/indirectInt.png",
+    "last_modified": "2024-06-18T10:22:52-07:00",
+    "input_file": {}
+  }
+]

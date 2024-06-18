@@ -1,0 +1,12 @@
+{
+  "articles": [
+    {
+      "path": "index.html",
+      "title": "Evolution-mediated",
+      "author": [],
+      "contents": "\r\nHello!\r\n\r\n\r\n\r\n",
+      "last_modified": "2024-06-18T16:19:13-07:00"
+    }
+  ],
+  "collections": ["posts/posts.json"]
+}
