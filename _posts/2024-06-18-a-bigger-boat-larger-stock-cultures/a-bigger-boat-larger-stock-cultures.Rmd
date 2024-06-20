@@ -1,5 +1,7 @@
 ---
 title: "A Bigger Boat"
+categories: 
+  - Project Updates
 description: |
   Increasing the volume of my stock cultures to accomidate higher replication and running experiments in parallel.
 author:
