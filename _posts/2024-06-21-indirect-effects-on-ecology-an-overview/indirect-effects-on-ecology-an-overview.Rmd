@@ -1,0 +1,26 @@
+---
+title: "Indirect Effects on Ecology: An Overview"
+description: |
+  What do we mean by 'indirect effects' in the context of ecology, and why should we care?
+author:
+  - name: Alex Mendelson
+date: 2024-06-21
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+## First, a story
+
+The rapid increase in the amount of carbon dioxide in Earth's atmosphere is a sensational topic, widely credited as the main driver behind human-caused climate change. Elevated levels of carbon dioxide leads to a strengthening of the crucial greenhouse effect our atmosphere naturally provides. Large molecules, including ozone (O3), methane (CH4), water vapor (H20), and of course carbon dioxide (CO2) keeps the dark side of Earth from freezing at night by re-capturing energy from sunlight that radiates off of the planet's surface. 
+
+
+## Community Ecology
+
+
+## Combinatorial Explosion
+

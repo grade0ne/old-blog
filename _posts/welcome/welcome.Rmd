@@ -4,8 +4,7 @@ description: |
   Welcome to Evolution-mediated, a project focused on investigating evolution-mediated indirect effects of climate change on ecology in diverse natural communities. 
   
 author:
-  - name: Alex Mendelson 
-    url: https://example.com/norajones
+  - name: Alex Mendelson
     affiliation: terHorst Evolutionary Ecology Lab, CSUN
     affiliation_url: https://www.ecoevolab.com/
 date: 06-15-2024

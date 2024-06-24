@@ -6,7 +6,6 @@ description: |
   Increasing the volume of my stock cultures to accomidate higher replication and running experiments in parallel.
 author:
   - name: Alex Mendelson
-    url: https://example.com/norajones
 date: 2024-06-18
 output:
   distill::distill_article:
@@ -64,4 +63,27 @@ VolFinHalf <- sourceCultures$VolumeFinal / 2
 sourceCultures <- cbind(sourceCultures, VolFinHalf)
 
 kable(sourceCultures)
+```
+
+I've tracked the cultures' growth progress in the figure below:
+
+```{r, stockTracking, echo=TRUE}
+library(tidyverse)
+library(car)
+library(knitr)
+
+stockCultures <- read.csv("C:\\Users\\timet\\Documents\\~terHorst\\Git Repositories\\blog\\data\\stock_june_2024.csv")
+stockCultures$id <- as.factor(stockCultures$id)
+stockCultures$contam <- as.factor(stockCultures$contam)
+
+glimpse(stockCultures)
+
+ggplot(stockCultures, aes(x=day, y=count, group=id, color=id)) +
+  geom_point() +
+  geom_line(size=1.1) +
+  #facet_wrap(~id) +
+  labs(x="Time (days)", y="Rotifer count (0.3 mL sample)", color="Clone ID") +
+  theme_bw() +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+
 ```
