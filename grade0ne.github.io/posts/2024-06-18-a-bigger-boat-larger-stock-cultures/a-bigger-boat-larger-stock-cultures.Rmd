@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```{r banner, echo=FALSE, results='asis'}
 cat('<div style="text-align: center;">')
-knitr::include_graphics("../../images/lab-bench-1.jpg")
+knitr::include_graphics("../../../images/lab-bench-1.jpg")
 cat('</div>')
 ```
 
