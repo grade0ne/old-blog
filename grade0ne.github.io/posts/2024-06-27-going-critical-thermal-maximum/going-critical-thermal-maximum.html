@@ -118,7 +118,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["going-critical-thermal-maximum_files/anchor-4.2.2/anchor.min.js","going-critical-thermal-maximum_files/bowser-1.9.3/bowser.min.js","going-critical-thermal-maximum_files/distill-2.2.21/template.v2.js","going-critical-thermal-maximum_files/figure-html5/ctmax-1.png","going-critical-thermal-maximum_files/header-attrs-2.25/header-attrs.js","going-critical-thermal-maximum_files/jquery-3.6.0/jquery-3.6.0.js","going-critical-thermal-maximum_files/jquery-3.6.0/jquery-3.6.0.min.js","going-critical-thermal-maximum_files/jquery-3.6.0/jquery-3.6.0.min.map","going-critical-thermal-maximum_files/popper-2.6.0/popper.min.js","going-critical-thermal-maximum_files/tippy-6.2.7/tippy-bundle.umd.min.js","going-critical-thermal-maximum_files/tippy-6.2.7/tippy-light-border.css","going-critical-thermal-maximum_files/tippy-6.2.7/tippy.css","going-critical-thermal-maximum_files/tippy-6.2.7/tippy.umd.min.js","going-critical-thermal-maximum_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["going-critical-thermal-maximum_files/anchor-4.2.2/anchor.min.js","going-critical-thermal-maximum_files/bowser-1.9.3/bowser.min.js","going-critical-thermal-maximum_files/distill-2.2.21/template.v2.js","going-critical-thermal-maximum_files/figure-html5/cooling-1.png","going-critical-thermal-maximum_files/figure-html5/ctmax-1.png","going-critical-thermal-maximum_files/header-attrs-2.25/header-attrs.js","going-critical-thermal-maximum_files/jquery-3.6.0/jquery-3.6.0.js","going-critical-thermal-maximum_files/jquery-3.6.0/jquery-3.6.0.min.js","going-critical-thermal-maximum_files/jquery-3.6.0/jquery-3.6.0.min.map","going-critical-thermal-maximum_files/popper-2.6.0/popper.min.js","going-critical-thermal-maximum_files/tippy-6.2.7/tippy-bundle.umd.min.js","going-critical-thermal-maximum_files/tippy-6.2.7/tippy-light-border.css","going-critical-thermal-maximum_files/tippy-6.2.7/tippy.css","going-critical-thermal-maximum_files/tippy-6.2.7/tippy.umd.min.js","going-critical-thermal-maximum_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1854,6 +1854,40 @@ Show code
 </tr>
 </tbody>
 </table>
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>setupSorted</span> <span class='op'>&lt;-</span> <span class='va'>expSetup</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/order.html'>order</a></span><span class='op'>(</span><span class='va'>expSetup</span><span class='op'>$</span><span class='st'>'Well'</span><span class='op'>)</span>, <span class='op'>]</span></span>
+<span><span class='va'>setupSorted</span></span></code></pre>
+</div>
+</details>
+<pre><code>   CloneID Well Rep VolumeFinal    VolAdd
+17     2.4   A1   a    93.50649 206.49351
+21     2.5   A2   a   101.40845 198.59155
+1      1.2   A3   a   288.00000  12.00000
+13     2.3   A4   a    69.90291 230.09709
+23     2.5   A5   b   101.40845 198.59155
+11     1.7   A6   a   232.25806  67.74194
+14     2.3   B1   b    69.90291 230.09709
+5      1.5   B2   a    54.13534 245.86466
+3      1.2   B3   b   288.00000  12.00000
+22     2.5   B4   c   101.40845 198.59155
+12     1.7   B5   b   232.25806  67.74194
+6      1.5   B6   b    54.13534 245.86466
+9      1.7   C1   c   232.25806  67.74194
+4      1.2   C2   c   288.00000  12.00000
+18     2.4   C3   b    93.50649 206.49351
+7      1.5   C4   c    54.13534 245.86466
+10     1.7   C5   d   232.25806  67.74194
+15     2.3   C6   c    69.90291 230.09709
+16     2.3   D1   d    69.90291 230.09709
+8      1.5   D2   d    54.13534 245.86466
+20     2.4   D3   c    93.50649 206.49351
+24     2.5   D4   d   101.40845 198.59155
+2      1.2   D5   d   288.00000  12.00000
+19     2.4   D6   d    93.50649 206.49351</code></pre>
 </div>
 <h3 id="mistakes">Mistakes</h3>
 <p>In my first attempt at this experiment, I ran into a few issues with these methods:</p>
@@ -1861,9 +1895,9 @@ Show code
 <li><p><strong>Activity scoring was inaccurate</strong>, probably because 300 uL in a 24-well tissue culture plates is too much volume to observe at once.</p></li>
 <li><p><strong>Scoring took too long</strong>, meaning the rotifers spent an equal period of time at room temperature as at experimental temperatures (~30 minutes) <em>each time</em> I scored activity. Worse, I scored wells in the same order each time, therefor wells in row A are more likely to show effects of temperature stress than row D. A silver lining to this oversight, however, is that I can look for effects of this unequal cooling effect in the data.</p></li>
 </ol>
-<p>To address these issues, I will experiment with using a plate with smaller well sizes and record videos of the wells to image movement ‘globally’, capturing all active rotifers at once to reduce the risk of double-counting or missing individuals. Recording a few seconds of video of each well would only take around 2 minutes—much shorter than counting each well individually.</p>
+<p>To address these issues, I will experiment with using a plate with smaller well sizes to greatly decrease the time it takes to score activity. Additionally, I’ll try rotating plates</p>
 <h3 id="results">Results</h3>
-<p>Below is a figure describing change in activity at three temperature points beyond room temperature (27.5, 30, 35 C). Note the high standard error, likely due to the two issues addressed above.</p>
+<p>Below, Figure 1 describes change in activity at three temperature points beyond room temperature (27.5, 30, 35 C). Note the high standard error, likely due to the two issues addressed above. Figure 2 shows similar results, split into the four replicates for each clone. Replicate “a” was always measured at a time-point with less cooling than subsequent replicates of each clone.</p>
 <p><span class="math display">\[
 \Delta\,Activity = Initial\;count\;of\;active\;rotifers-Final\;count\;of\;active\;rotifers
 \]</span></p>
@@ -1892,12 +1926,346 @@ Show code
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>panel.grid.major <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span><span class='op'>(</span><span class='op'>)</span>, panel.grid.minor <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>
-<p><img src="going-critical-thermal-maximum_files/figure-html5/ctmax-1.png" width="624" /></p>
+<div class="figure"><span style="display:block;" id="fig:ctmax"></span>
+<img src="going-critical-thermal-maximum_files/figure-html5/ctmax-1.png" alt="Mean change in activity (+SE) at 4 temperature points in 6 clonal cultures of rotifers. Each clone was replicated 4 times." width="624" />
+<p class="caption">
+Figure 1: Mean change in activity (+SE) at 4 temperature points in 6 clonal cultures of rotifers. Each clone was replicated 4 times.
+</p>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>ctmax</span><span class='op'>$</span><span class='va'>Rep</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>ctmax</span><span class='op'>$</span><span class='va'>Rep</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>coolingGraph</span> <span class='op'>&lt;-</span> <span class='va'>ctmax</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>CloneID</span>, <span class='va'>Temp</span>, <span class='va'>Rep</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>mean<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>deltaActive</span><span class='op'>)</span>, sd<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>deltaActive</span><span class='op'>)</span>, se<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>deltaActive</span><span class='op'>)</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>deltaActive</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>ctmax</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>Temp</span>, y<span class='op'>=</span><span class='va'>deltaActive</span>, group<span class='op'>=</span><span class='va'>Rep</span>, color<span class='op'>=</span><span class='va'>Rep</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>25</span>, <span class='fl'>27.5</span>, <span class='fl'>30</span>, <span class='fl'>35</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span>size<span class='op'>=</span><span class='fl'>1.1</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>CloneID</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='st'>"Temperature (C)"</span>, y<span class='op'>=</span><span class='st'>"Change in activity"</span>, color<span class='op'>=</span><span class='st'>"Replicate"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_bw</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>panel.grid.major <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span><span class='op'>(</span><span class='op'>)</span>, panel.grid.minor <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<div class="figure"><span style="display:block;" id="fig:cooling"></span>
+<img src="going-critical-thermal-maximum_files/figure-html5/cooling-1.png" alt="Change in activity at 4 temperature points in 6 clonal cultures of rotifers, split up by replicate to observe effects of cooling during data colection. Replicate 'a' was always measured at a time-point with less cooling than subsequent replicates of each clone." width="624" />
+<p class="caption">
+Figure 2: Change in activity at 4 temperature points in 6 clonal cultures of rotifers, split up by replicate to observe effects of cooling during data colection. Replicate ‘a’ was always measured at a time-point with less cooling than subsequent replicates of each clone.
+</p>
+</div>
 </div>
 <h2 id="attempt-2">Attempt 2</h2>
 <p><em>June 28, 2024</em></p>
 <h3 id="methods-1">Methods</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>sourceCultures2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span></span>
+<span>  Source <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Stock"</span>, <span class='st'>"Pop1"</span>, <span class='st'>"Pop1"</span>, <span class='st'>"Pop1"</span>, <span class='st'>"Pop1"</span>, <span class='st'>"Pop1"</span><span class='op'>)</span>,</span>
+<span>  CloneID <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1.2"</span>, <span class='st'>"1.5"</span>, <span class='st'>"1.7"</span>, <span class='st'>"2.3"</span>, <span class='st'>"2.4"</span>, <span class='st'>"2.5"</span><span class='op'>)</span>,</span>
+<span>  Count <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>25</span>,<span class='fl'>133</span>,<span class='fl'>31</span>,<span class='fl'>103</span>,<span class='fl'>77</span>,<span class='fl'>71</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>countVol2</span> <span class='op'>=</span> <span class='fl'>0.3</span>         <span class='co'># volume counted in plate</span></span>
+<span><span class='va'>finalDensity2</span> <span class='op'>=</span> <span class='fl'>80</span>      <span class='co'># rotifers per mL</span></span>
+<span><span class='va'>finalVolume2</span> <span class='op'>=</span> <span class='fl'>.15</span>      <span class='co'># experimental volume, mL</span></span>
+<span></span>
+<span><span class='co'># The volume of source culture to be transferred to destination in microliters (uL)</span></span>
+<span><span class='va'>VolumeFinal2</span> <span class='op'>&lt;-</span> <span class='op'>(</span><span class='op'>(</span><span class='va'>finalDensity2</span> <span class='op'>*</span> <span class='va'>finalVolume2</span><span class='op'>)</span><span class='op'>/</span> <span class='op'>(</span><span class='va'>sourceCultures2</span><span class='op'>$</span><span class='va'>Count</span> <span class='op'>/</span> <span class='va'>countVol2</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>*</span><span class='fl'>1000</span> </span>
+<span><span class='va'>sourceCultures2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>sourceCultures2</span>, <span class='va'>VolumeFinal2</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># I couldn't find any 10 mL pipette tips, so I included this column to easily use the 5 mL pipette twice</span></span>
+<span><span class='va'>VolFinHalf2</span> <span class='op'>&lt;-</span> <span class='va'>sourceCultures2</span><span class='op'>$</span><span class='va'>VolumeFinal2</span> <span class='op'>/</span> <span class='fl'>2</span></span>
+<span><span class='va'>sourceCultures2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>sourceCultures2</span>, <span class='va'>VolFinHalf2</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># The volume of media (in uL) to be added into each experimental well for the total volume to remain consistent among clones</span></span>
+<span><span class='va'>VolAdd2</span> <span class='op'>&lt;-</span> <span class='op'>(</span><span class='op'>(</span><span class='va'>finalVolume2</span> <span class='op'>*</span> <span class='fl'>1000</span><span class='op'>)</span> <span class='op'>-</span> <span class='va'>sourceCultures2</span><span class='op'>$</span><span class='va'>VolumeFinal2</span><span class='op'>)</span></span>
+<span><span class='va'>sourceCultures2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>sourceCultures2</span>, <span class='va'>VolAdd2</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='va'>sourceCultures2</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Source</th>
+<th style="text-align: left;">CloneID</th>
+<th style="text-align: right;">Count</th>
+<th style="text-align: right;">VolumeFinal2</th>
+<th style="text-align: right;">VolFinHalf2</th>
+<th style="text-align: right;">VolAdd2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Stock</td>
+<td style="text-align: left;">1.2</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">144.00000</td>
+<td style="text-align: right;">72.00000</td>
+<td style="text-align: right;">6.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Pop1</td>
+<td style="text-align: left;">1.5</td>
+<td style="text-align: right;">133</td>
+<td style="text-align: right;">27.06767</td>
+<td style="text-align: right;">13.53383</td>
+<td style="text-align: right;">122.93233</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Pop1</td>
+<td style="text-align: left;">1.7</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">116.12903</td>
+<td style="text-align: right;">58.06452</td>
+<td style="text-align: right;">33.87097</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Pop1</td>
+<td style="text-align: left;">2.3</td>
+<td style="text-align: right;">103</td>
+<td style="text-align: right;">34.95146</td>
+<td style="text-align: right;">17.47573</td>
+<td style="text-align: right;">115.04854</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Pop1</td>
+<td style="text-align: left;">2.4</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: right;">46.75325</td>
+<td style="text-align: right;">23.37662</td>
+<td style="text-align: right;">103.24675</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Pop1</td>
+<td style="text-align: left;">2.5</td>
+<td style="text-align: right;">71</td>
+<td style="text-align: right;">50.70423</td>
+<td style="text-align: right;">25.35211</td>
+<td style="text-align: right;">99.29577</td>
+</tr>
+</tbody>
+</table>
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># This matrix of randomized plate well-cloneID combinations was created using python</span></span>
+<span><span class='va'>randomizedMatrix</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span></span>
+<span>  Well <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A1"</span>, <span class='st'>"A2"</span>, <span class='st'>"A3"</span>, <span class='st'>"A4"</span>, <span class='st'>"A5"</span>, <span class='st'>"A6"</span>, </span>
+<span>           <span class='st'>"B1"</span>, <span class='st'>"B2"</span>, <span class='st'>"B3"</span>, <span class='st'>"B4"</span>, <span class='st'>"B5"</span>, <span class='st'>"B6"</span>, </span>
+<span>           <span class='st'>"C1"</span>, <span class='st'>"C2"</span>, <span class='st'>"C3"</span>, <span class='st'>"C4"</span>, <span class='st'>"C5"</span>, <span class='st'>"C6"</span>, </span>
+<span>           <span class='st'>"D1"</span>, <span class='st'>"D2"</span>, <span class='st'>"D3"</span>, <span class='st'>"D4"</span>, <span class='st'>"D5"</span>, <span class='st'>"D6"</span><span class='op'>)</span>,</span>
+<span>  CloneID <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2.4"</span>, <span class='st'>"2.5"</span>, <span class='st'>"1.2"</span>, <span class='st'>"2.3"</span>, <span class='st'>"2.5"</span>, <span class='st'>"1.7"</span>, </span>
+<span>         <span class='st'>"2.3"</span>, <span class='st'>"1.5"</span>, <span class='st'>"1.2"</span>, <span class='st'>"2.5"</span>, <span class='st'>"1.7"</span>, <span class='st'>"1.5"</span>, </span>
+<span>         <span class='st'>"1.7"</span>, <span class='st'>"1.2"</span>, <span class='st'>"2.4"</span>, <span class='st'>"1.5"</span>, <span class='st'>"1.7"</span>, <span class='st'>"2.3"</span>, </span>
+<span>         <span class='st'>"2.3"</span>, <span class='st'>"1.5"</span>, <span class='st'>"2.4"</span>, <span class='st'>"2.5"</span>, <span class='st'>"1.2"</span>, <span class='st'>"2.4"</span><span class='op'>)</span>, </span>
+<span>  Rep <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"a"</span>, <span class='st'>"a"</span>, <span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"a"</span>,</span>
+<span>          <span class='st'>"b"</span>, <span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span>, <span class='st'>"b"</span>, <span class='st'>"b"</span>,</span>
+<span>          <span class='st'>"c"</span>, <span class='st'>"c"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span>, <span class='st'>"d"</span>, <span class='st'>"c"</span>,</span>
+<span>          <span class='st'>"d"</span>, <span class='st'>"d"</span>, <span class='st'>"c"</span>, <span class='st'>"d"</span>, <span class='st'>"d"</span>, <span class='st'>"d"</span><span class='op'>)</span></span>
+<span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>expSetup</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/merge.html'>merge</a></span><span class='op'>(</span><span class='va'>randomizedMatrix</span>, <span class='va'>sourceCultures2</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CloneID"</span>, <span class='st'>"VolumeFinal2"</span>, <span class='st'>"VolAdd2"</span><span class='op'>)</span><span class='op'>]</span>, by <span class='op'>=</span> <span class='st'>"CloneID"</span>, all.x <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='va'>expSetup</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">CloneID</th>
+<th style="text-align: left;">Well</th>
+<th style="text-align: left;">Rep</th>
+<th style="text-align: right;">VolumeFinal2</th>
+<th style="text-align: right;">VolAdd2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1.2</td>
+<td style="text-align: left;">A3</td>
+<td style="text-align: left;">a</td>
+<td style="text-align: right;">144.00000</td>
+<td style="text-align: right;">6.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1.2</td>
+<td style="text-align: left;">D5</td>
+<td style="text-align: left;">d</td>
+<td style="text-align: right;">144.00000</td>
+<td style="text-align: right;">6.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1.2</td>
+<td style="text-align: left;">B3</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: right;">144.00000</td>
+<td style="text-align: right;">6.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1.2</td>
+<td style="text-align: left;">C2</td>
+<td style="text-align: left;">c</td>
+<td style="text-align: right;">144.00000</td>
+<td style="text-align: right;">6.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1.5</td>
+<td style="text-align: left;">B2</td>
+<td style="text-align: left;">a</td>
+<td style="text-align: right;">27.06767</td>
+<td style="text-align: right;">122.93233</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1.5</td>
+<td style="text-align: left;">B6</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: right;">27.06767</td>
+<td style="text-align: right;">122.93233</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1.5</td>
+<td style="text-align: left;">C4</td>
+<td style="text-align: left;">c</td>
+<td style="text-align: right;">27.06767</td>
+<td style="text-align: right;">122.93233</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1.5</td>
+<td style="text-align: left;">D2</td>
+<td style="text-align: left;">d</td>
+<td style="text-align: right;">27.06767</td>
+<td style="text-align: right;">122.93233</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1.7</td>
+<td style="text-align: left;">C1</td>
+<td style="text-align: left;">c</td>
+<td style="text-align: right;">116.12903</td>
+<td style="text-align: right;">33.87097</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1.7</td>
+<td style="text-align: left;">C5</td>
+<td style="text-align: left;">d</td>
+<td style="text-align: right;">116.12903</td>
+<td style="text-align: right;">33.87097</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1.7</td>
+<td style="text-align: left;">A6</td>
+<td style="text-align: left;">a</td>
+<td style="text-align: right;">116.12903</td>
+<td style="text-align: right;">33.87097</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1.7</td>
+<td style="text-align: left;">B5</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: right;">116.12903</td>
+<td style="text-align: right;">33.87097</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2.3</td>
+<td style="text-align: left;">A4</td>
+<td style="text-align: left;">a</td>
+<td style="text-align: right;">34.95146</td>
+<td style="text-align: right;">115.04854</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2.3</td>
+<td style="text-align: left;">B1</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: right;">34.95146</td>
+<td style="text-align: right;">115.04854</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2.3</td>
+<td style="text-align: left;">C6</td>
+<td style="text-align: left;">c</td>
+<td style="text-align: right;">34.95146</td>
+<td style="text-align: right;">115.04854</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2.3</td>
+<td style="text-align: left;">D1</td>
+<td style="text-align: left;">d</td>
+<td style="text-align: right;">34.95146</td>
+<td style="text-align: right;">115.04854</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2.4</td>
+<td style="text-align: left;">A1</td>
+<td style="text-align: left;">a</td>
+<td style="text-align: right;">46.75325</td>
+<td style="text-align: right;">103.24675</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2.4</td>
+<td style="text-align: left;">C3</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: right;">46.75325</td>
+<td style="text-align: right;">103.24675</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2.4</td>
+<td style="text-align: left;">D6</td>
+<td style="text-align: left;">d</td>
+<td style="text-align: right;">46.75325</td>
+<td style="text-align: right;">103.24675</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2.4</td>
+<td style="text-align: left;">D3</td>
+<td style="text-align: left;">c</td>
+<td style="text-align: right;">46.75325</td>
+<td style="text-align: right;">103.24675</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2.5</td>
+<td style="text-align: left;">A2</td>
+<td style="text-align: left;">a</td>
+<td style="text-align: right;">50.70423</td>
+<td style="text-align: right;">99.29577</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2.5</td>
+<td style="text-align: left;">B4</td>
+<td style="text-align: left;">c</td>
+<td style="text-align: right;">50.70423</td>
+<td style="text-align: right;">99.29577</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2.5</td>
+<td style="text-align: left;">A5</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: right;">50.70423</td>
+<td style="text-align: right;">99.29577</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2.5</td>
+<td style="text-align: left;">D4</td>
+<td style="text-align: left;">d</td>
+<td style="text-align: right;">50.70423</td>
+<td style="text-align: right;">99.29577</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

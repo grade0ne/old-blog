@@ -82,6 +82,8 @@ expSetup <- merge(randomizedMatrix, sourceCultures[, c("CloneID", "VolumeFinal",
 
 kable(expSetup)
 
+setupSorted <- expSetup[order(expSetup$'Well'), ]
+setupSorted
 ```
 
 
@@ -93,18 +95,18 @@ In my first attempt at this experiment, I ran into a few issues with these metho
 
 (2) **Scoring took too long**, meaning the rotifers spent an equal period of time at room temperature as at experimental temperatures (~30 minutes) *each time* I scored activity. Worse, I scored wells in the same order each time, therefor wells in row A are more likely to show effects of temperature stress than row D. A silver lining to this oversight, however, is that I can look for effects of this unequal cooling effect in the data.
 
-To address these issues, I will experiment with using a plate with smaller well sizes and record videos of the wells to image movement 'globally', capturing all active rotifers at once to reduce the risk of double-counting or missing individuals. Recording a few seconds of video of each well would only take around 2 minutes---much shorter than counting each well individually. 
+To address these issues, I will experiment with using a plate with smaller well sizes to greatly decrease the time it takes to score activity. Additionally, I'll try rotating plates 
 
 ### Results
 
-Below is a figure describing change in activity at three temperature points beyond room temperature (27.5, 30, 35 C). Note the high standard error, likely due to the two issues addressed above.
+Below, Figure 1 describes change in activity at three temperature points beyond room temperature (27.5, 30, 35 C). Note the high standard error, likely due to the two issues addressed above. Figure 2 shows similar results, split into the four replicates for each clone. Replicate "a" was always measured at a time-point with less cooling than subsequent replicates of each clone.
 
 $$
 \Delta\,Activity = Initial\;count\;of\;active\;rotifers-Final\;count\;of\;active\;rotifers
 $$
 
 
-```{r ctmax, include=TRUE, echo=TRUE}
+```{r ctmax, include=TRUE, echo=TRUE, fig.cap=c("Mean change in activity (+SE) at 4 temperature points in 6 clonal cultures of rotifers. Each clone was replicated 4 times.")}
 
 ctmax <- read.csv("C:\\Users\\timet\\Documents\\~terHorst\\Git Repositories\\blog\\data\\ctmax.csv")
 
@@ -126,12 +128,30 @@ ggplot(graphdata, aes(x=Temp, y=mean, group=CloneID, color=CloneID)) +
 
 ```
 
+```{r cooling, include=TRUE, echo=TRUE, fig.cap=c("Change in activity at 4 temperature points in 6 clonal cultures of rotifers, split up by replicate to observe effects of cooling during data colection. Replicate 'a' was always measured at a time-point with less cooling than subsequent replicates of each clone.")}
+
+ctmax$Rep <- as.factor(ctmax$Rep)
+
+coolingGraph <- ctmax %>%
+  group_by(CloneID, Temp, Rep) %>%
+  summarize(mean=mean(deltaActive), sd=sd(deltaActive), se=sd(deltaActive)/sqrt(length(deltaActive)))
+
+ggplot(ctmax, aes(x=Temp, y=deltaActive, group=Rep, color=Rep)) +
+  geom_point() +
+  scale_x_continuous(breaks = c(25, 27.5, 30, 35)) +
+  geom_line(size=1.1) +
+  facet_wrap(~CloneID) +
+  labs(x="Temperature (C)", y="Change in activity", color="Replicate") +
+  theme_bw() +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+```
+
 ## Attempt 2
 *June 28, 2024*
 
 ### Methods
 
-```{r expSetup, include=TRUE, echo=TRUE}
+```{r expSetup2, include=TRUE, echo=TRUE}
 
 sourceCultures2 <- data.frame(
   Source = c("Stock", "Pop1", "Pop1", "Pop1", "Pop1", "Pop1"),
@@ -140,7 +160,7 @@ sourceCultures2 <- data.frame(
 
 countVol2 = 0.3         # volume counted in plate
 finalDensity2 = 80      # rotifers per mL
-finalVolume2 = 0.1      # stock culture volume, mL
+finalVolume2 = .15      # experimental volume, mL
 
 # The volume of source culture to be transferred to destination in microliters (uL)
 VolumeFinal2 <- ((finalDensity2 * finalVolume2)/ (sourceCultures2$Count / countVol2)) *1000 
