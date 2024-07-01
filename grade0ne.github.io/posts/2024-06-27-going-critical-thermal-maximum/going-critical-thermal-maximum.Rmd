@@ -33,6 +33,12 @@ library(tidyverse)
 library(car)
 library(knitr)
 library(ggplot2)
+library(broom)
+library(dplyr)
+library(kableExtra)
+library(lme4)
+library(lmerTest)
+library(Matrix)
 ```
 
 Each clone is replicated four times. Clone replicates are randomly distributed within the plate.
@@ -60,7 +66,7 @@ sourceCultures <- cbind(sourceCultures, VolFinHalf)
 VolAdd <- (300 - sourceCultures$VolumeFinal)
 sourceCultures <- cbind(sourceCultures, VolAdd)
 
-kable(sourceCultures)
+#kable(sourceCultures)
 
 # This matrix of randomized plate well-cloneID combinations was created using python
 randomizedMatrix <- data.frame(
@@ -80,11 +86,12 @@ randomizedMatrix <- data.frame(
 
 expSetup <- merge(randomizedMatrix, sourceCultures[, c("CloneID", "VolumeFinal", "VolAdd")], by = "CloneID", all.x = TRUE)
 
-kable(expSetup)
+#kable(expSetup)
 
 setupSorted <- expSetup[order(expSetup$'Well'), ]
-setupSorted
+#kable(setupSorted)
 ```
+
 
 
 ### Mistakes
@@ -128,13 +135,10 @@ ggplot(graphdata, aes(x=Temp, y=mean, group=CloneID, color=CloneID)) +
 
 ```
 
-```{r cooling, include=TRUE, echo=TRUE, fig.cap=c("Change in activity at 4 temperature points in 6 clonal cultures of rotifers, split up by replicate to observe effects of cooling during data colection. Replicate 'a' was always measured at a time-point with less cooling than subsequent replicates of each clone.")}
+```{r cooling, include=TRUE, echo=TRUE, fig.cap=c("Change in activity at 4 temperature points in 6 clonal cultures of rotifers, split up by replicate to observe effects of cooling during data colection. Replicate 'a' was always measured at a time-point with less cooling than subsequent replicates of each clone.", "Minutes spent at room temperature before being scored for activity in each replicate across the 6 clones. This remained consistent at all temperatures.")}
 
 ctmax$Rep <- as.factor(ctmax$Rep)
-
-coolingGraph <- ctmax %>%
-  group_by(CloneID, Temp, Rep) %>%
-  summarize(mean=mean(deltaActive), sd=sd(deltaActive), se=sd(deltaActive)/sqrt(length(deltaActive)))
+ctmax$TempFact <- as.factor(ctmax$Temp)
 
 ggplot(ctmax, aes(x=Temp, y=deltaActive, group=Rep, color=Rep)) +
   geom_point() +
@@ -144,10 +148,22 @@ ggplot(ctmax, aes(x=Temp, y=deltaActive, group=Rep, color=Rep)) +
   labs(x="Temperature (C)", y="Change in activity", color="Replicate") +
   theme_bw() +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+
+cooling <- ctmax %>%
+  group_by(CloneID, Rep)
+
+ggplot(cooling, aes(x=Rep, y=timeAtAmb, color=Rep)) +
+  geom_point() +
+  facet_wrap(~CloneID) +
+  labs(x="Replicate", y="Minutes at room temperature") +
+  theme_bw() +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.box = element_blank(), legend.background = element_blank(), legend.text = element_blank())
+
+
 ```
 
 ## Attempt 2
-*June 28, 2024*
+*June 30, 2024*
 
 ### Methods
 
@@ -156,10 +172,10 @@ ggplot(ctmax, aes(x=Temp, y=deltaActive, group=Rep, color=Rep)) +
 sourceCultures2 <- data.frame(
   Source = c("Stock", "Pop1", "Pop1", "Pop1", "Pop1", "Pop1"),
   CloneID = c("1.2", "1.5", "1.7", "2.3", "2.4", "2.5"),
-  Count = c(25,133,31,103,77,71))
+  Count = c(40, 146, 26, 102, 22, 56))
 
 countVol2 = 0.3         # volume counted in plate
-finalDensity2 = 80      # rotifers per mL
+finalDensity2 = 75      # rotifers per mL
 finalVolume2 = .15      # experimental volume, mL
 
 # The volume of source culture to be transferred to destination in microliters (uL)
@@ -174,7 +190,7 @@ sourceCultures2 <- cbind(sourceCultures2, VolFinHalf2)
 VolAdd2 <- ((finalVolume2 * 1000) - sourceCultures2$VolumeFinal2)
 sourceCultures2 <- cbind(sourceCultures2, VolAdd2)
 
-kable(sourceCultures2)
+#kable(sourceCultures2)
 
 # This matrix of randomized plate well-cloneID combinations was created using python
 randomizedMatrix <- data.frame(
@@ -192,8 +208,105 @@ randomizedMatrix <- data.frame(
           "d", "d", "c", "d", "d", "d")
 )
 
-expSetup <- merge(randomizedMatrix, sourceCultures2[, c("CloneID", "VolumeFinal2", "VolAdd2")], by = "CloneID", all.x = TRUE)
+expSetup <- merge(randomizedMatrix, sourceCultures2[, c("CloneID", "VolumeFinal2", "VolAdd2")], 
+                  by = "CloneID", all.x = TRUE)
 
-kable(expSetup)
+#kable(expSetup)
+
+```
+
+### Results
+
+```{r propAct, echo=TRUE, include=TRUE}
+
+ctmax2 <- read.csv("C:\\Users\\timet\\Documents\\~terHorst\\Git Repositories\\blog\\data\\ctmax2.csv")
+
+ctmax2$CloneID <- as.factor(ctmax2$CloneID)
+
+graphdata2 <- ctmax2 %>%
+  group_by(CloneID, Temp) %>%
+  summarize(mean=mean(propActive), 
+            sd=sd(propActive), 
+            se=sd(propActive)/sqrt(length(propActive)))
+
+ggplot(graphdata2, aes(x=Temp, y=mean, group=CloneID, color=CloneID)) +
+  geom_point() +
+  scale_x_continuous(breaks = c(25, 27.5, 30, 32.5, 35, 37.5, 40, 42.5, 45, 47.5)) +
+  geom_line(size=1.1) +
+  #facet_wrap(~id) +
+  labs(x="Temperature (C)", y="Proportion of individuals active", color="Clone ID (n=12)") +
+  geom_errorbar(aes(ymax=mean+se, ymin=mean-se), 
+                position=position_dodge(0.25), 
+                width=0.3) +
+  geom_hline(yintercept = 0.5, 
+             linetype = "dashed") +
+  theme_bw() +
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank())
+
+```
+
+```{r crit, echo=TRUE, include=TRUE}
+
+ctmax2$CloneID <- as.factor(ctmax2$CloneID)
+
+models <- ctmax2 %>%
+  group_by(CloneID) %>%
+  do(model = glm(propActive ~ Temp, data= ., family = quasibinomial))
+
+find_temp_0.5 <- function(model) {
+  coef <- coef(model)
+  conf <- tryCatch(confint(model), error = function(e) NA)
+  
+  if (all(is.na(conf))) {
+    return(data.frame(temp_0.5 = NA, 
+                      temp_0.5_lower = NA,
+                      temp_0.5_upper = NA))
+  }
+  
+  intercept <- coef["(Intercept)"]
+  slope <- coef["Temp"]
+  temp_0.5 <- -intercept / slope
+  
+  intercept_ci <- conf["(Intercept)", ]
+  slope_ci <- conf["Temp", ]
+  
+  temp_0.5_lower <- -(intercept_ci[2]) / slope_ci[1]
+  temp_0.5_upper <- -(intercept_ci[1]) / slope_ci[2
+                                                  ]
+  return(data.frame(temp_0.5 = temp_0.5,
+                    temp_0.5_lower = temp_0.5_lower,
+                    temp_0.5_upper = temp_0.5_upper))
+}
+
+temperature_at_0.5 <- models %>%
+  rowwise() %>%
+  do(find_temp_0.5(.$model))
+
+temp_0.5_df <- bind_cols(temperature_at_0.5, models %>%
+  select(CloneID))
+
+temp_0.5_df <- temp_0.5_df %>% filter(!is.na(temp_0.5))
+
+print(temp_0.5_df)
+
+ggplot(temp_0.5_df, aes(x = CloneID, y = temp_0.5)) +
+  geom_bar(stat= "identity") +
+  ylim(25, 45) +
+  geom_errorbar(aes(ymin = temp_0.5_lower, 
+                    ymax = temp_0.5_upper), width = 0.2) +
+  labs(x = "Clone",
+       y = "Predicted LD50 Temp") +
+  theme_bw() +
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank())
+
+```
+
+```{r critAlt, echo=TRUE, include=TRUE}
+
+glimpse(ctmax2)
+
+#model1 <- lmer(propActive ~ Temp + (1|Rep), data = ctmax2)
 
 ```
